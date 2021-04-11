@@ -3,11 +3,12 @@ Provides linkedin api-related code
 """
 import random
 import logging
-from time import sleep
+from time import sleep # don't need sleep, random sleep handle in fajita
 from urllib.parse import urlencode
 import json
 import re
 from fajita import Fajita
+import random
 
 import realestate_com_au.settings as settings
 from realestate_com_au.graphql import searchBuy, searchRent, searchSold
@@ -168,6 +169,7 @@ class RealestateComAu(Fajita):
         def next_page(**kwargs):
             current_page = get_current_page(**kwargs)
             kwargs["json"] = get_payload(get_query_variables(current_page + 1))
+            #sleep(random.uniform(0.5, 2.5))
             return kwargs
 
         def is_done(items, res, **kwargs):
